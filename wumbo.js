@@ -26,9 +26,25 @@
             // Left to right parsing
             var i;
             
+            // Exponents
+            for(i = 0; i < expression.length; i++){
+                if(expression[i] === this.OPERATORS.exp){
+                    expression = this.simplify(expression, i);
+                    i = 0;
+                }
+            }
+            
             // Multiplication and division
             for(i = 0; i < expression.length; i++){
                 if(expression[i] === this.OPERATORS.mul || expression[i] === this.OPERATORS.div){
+                    expression = this.simplify(expression, i);
+                    i = 0;
+                }
+            }
+            
+            // Addition and subtraction
+            for(i = 0; i < expression.length; i++){
+                if(expression[i] === this.OPERATORS.add || expression[i] === this.OPERATORS.sub){
                     expression = this.simplify(expression, i);
                     i = 0;
                 }
@@ -99,10 +115,14 @@
         console.log("Right hand operand: " + op2);
         
         if(opsign === this.OPERATORS.add){
-            
+            var stuffing = this.add(op1,op2);
+            expression = expression.replaceBetween(leftstart,rightstart + 1,stuffing);
+            console.log("SIMPLIFICAITON: " + expression);
         }
         if(opsign === this.OPERATORS.sub){
-            
+            var stuffing = this.sub(op1,op2);
+            expression = expression.replaceBetween(leftstart,rightstart + 1,stuffing);
+            console.log("SIMPLIFICAITON: " + expression);
         }
         if(opsign === this.OPERATORS.mul){
             var stuffing = this.mul(op1,op2);
@@ -110,10 +130,14 @@
             console.log("SIMPLIFICAITON: " + expression);
         }
         if(opsign === this.OPERATORS.div){
-            
+            var stuffing = this.div(op1,op2);
+            expression = expression.replaceBetween(leftstart,rightstart + 1,stuffing);
+            console.log("SIMPLIFICAITON: " + expression);
         }
         if(opsign === this.OPERATORS.exp){
-            
+            var stuffing = this.exp(op1,op2);
+            expression = expression.replaceBetween(leftstart,rightstart + 1,stuffing);
+            console.log("SIMPLIFICAITON: " + expression);
         }
         
         return expression;
