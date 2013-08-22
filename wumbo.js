@@ -98,7 +98,7 @@
     /* LOGICAL FUNCTIONS */
 
     Porket.prototype.isOp = function (k) {
-        if (k === '+' || k === '-' || k === '*' || k === '/' || k === '^') {
+        if (k === '+' || k === '-' || k === '*' || k === '/' || k === '^' || k === '(' || k === ')') {
             return true;
         } else {
             return false;
