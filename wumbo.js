@@ -21,28 +21,28 @@
     /* Main parser */
     Porket.prototype.parse = function (expression) {
         if (expression.indexOf(this.OPERATORS.o_paren) !== -1) {
-            var startPoint = expression.indexOf(this.OPERATORS.o_paren);
-            var i;
-            var backlog = 0;
-            for (i = startPoint; i < expression.length; i++) {
-                if (expression[i] === this.OPERATORS.o_paren) {
-                    backlog += 1;
-                    console.log("open backlog: " + backlog);
-                }
-                if (expression[i] === this.OPERATORS.c_paren) {
-                    backlog -= 1;
-                    console.log("close backlog: " + backlog);
-                    if (backlog === 0) {
+            while (expression.indexOf(this.OPERATORS.o_paren) !== -1) {
+                var subsec;
+                var subsecsim;
+                console.log(expression);
+                var startPoint = expression.indexOf(this.OPERATORS.o_paren);
+                var endPoint;
+                for (i = startPoint + 1; i < expression.length; i++) {
+                    if (expression[i] === this.OPERATORS.o_paren) {
+                        startPoint = i;
+                    }
+                    if (expression[i] === this.OPERATORS.c_paren) {
+                        endPoint = i;
                         break;
                     }
                 }
+                subsec = expression.slice(startPoint, endPoint + 1); // the sub expression with the parenthesis (2 + 3)
+                subsec = subsec.replace("(",""); // strip away parenthesis
+                subsec = subsec.replace(")","");
+                subsecsim = this.parse(subsec);
+                expression = expression.replaceBetween(startPoint, endPoint + 1, subsecsim);
             }
-            var endPoint = i;
-            var subsec = expression.slice(startPoint, endPoint + 1);
-            var subsecsim = this.parse(subsec.slice(startPoint + 1, endPoint));
-            console.log("SUBSECSIM: " + subsecsim);
-            expression = expression.replaceBetween(startPoint, endPoint + 1, subsecsim);
-            console.log("EXP: " + expression);
+            expression = this.parse(expression);
         } else {
             // Left to right parsing
             var i;
