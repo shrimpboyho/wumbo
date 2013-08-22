@@ -27,9 +27,9 @@ Include the library in your HTML as follows:
 
 ##How to Use
 
-Create a ```wumbotron()``` object:
+Create a ```Wumbo()``` object:
 
 ```js
 
-var patrick = new Wumbotron(); // Create the wumbotron
+var patrick = new Wumbo(); // Create the wumbotron
 ```
