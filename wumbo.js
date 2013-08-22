@@ -40,34 +40,35 @@
             var endPoint = i;
             var subsec = expression.slice(startPoint, endPoint + 1);
             var subsecsim = this.parse(subsec.slice(startPoint + 1, endPoint));
-            console.log(subsec);
+            console.log("SUBSECSIM: " + subsecsim);
             expression = expression.replaceBetween(startPoint, endPoint + 1, subsecsim);
+            console.log("EXP: " + expression);
+        } else {
+            // Left to right parsing
+            var i;
 
-        }
-        // Left to right parsing
-        var i;
-
-        // Exponents
-        for (i = 0; i < expression.length; i++) {
-            if (expression[i] === this.OPERATORS.exp) {
-                expression = this.simplify(expression, i);
-                i = 0;
+            // Exponents
+            for (i = 0; i < expression.length; i++) {
+                if (expression[i] === this.OPERATORS.exp) {
+                    expression = this.simplify(expression, i);
+                    i = 0;
+                }
             }
-        }
 
-        // Multiplication and division
-        for (i = 0; i < expression.length; i++) {
-            if (expression[i] === this.OPERATORS.mul || expression[i] === this.OPERATORS.div) {
-                expression = this.simplify(expression, i);
-                i = 0;
+            // Multiplication and division
+            for (i = 0; i < expression.length; i++) {
+                if (expression[i] === this.OPERATORS.mul || expression[i] === this.OPERATORS.div) {
+                    expression = this.simplify(expression, i);
+                    i = 0;
+                }
             }
-        }
 
-        // Addition and subtraction
-        for (i = 0; i < expression.length; i++) {
-            if (expression[i] === this.OPERATORS.add || expression[i] === this.OPERATORS.sub) {
-                expression = this.simplify(expression, i);
-                i = 0;
+            // Addition and subtraction
+            for (i = 0; i < expression.length; i++) {
+                if (expression[i] === this.OPERATORS.add || expression[i] === this.OPERATORS.sub) {
+                    expression = this.simplify(expression, i);
+                    i = 0;
+                }
             }
         }
         return expression;
