@@ -1,6 +1,6 @@
 [wumbo](https://github.com/shrimpboyho/wumbo/) - A Simple Expression Parser
 ==============================================
 
-![image](http://i0.kym-cdn.com/photos/images/original/000/151/304/tumblr_lhgw75DNsu1qcp7qeo1_500.jpg)
+![image](http://static.fjcdn.com/pictures/Wumbo_1a4a2c_1459092.jpg)
 
 ##How To Use
