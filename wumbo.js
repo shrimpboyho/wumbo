@@ -5,7 +5,7 @@
     };
 
     /* Constructor */
-    window.Porket = function Porket() {
+    window.Wumbo = function Wumbo() {
         this.OPERATORS = {
             add: '+',
             sub: '-',
@@ -19,7 +19,7 @@
     };
 
     /* Main parser */
-    Porket.prototype.parse = function (expression) {
+    Wumbo.prototype.parse = function (expression) {
         if (expression.indexOf(this.OPERATORS.o_paren) !== -1) {
             while (expression.indexOf(this.OPERATORS.o_paren) !== -1) {
                 var subsec;
@@ -76,29 +76,29 @@
 
     /* OPERATOR FUNCTIONS */
 
-    Porket.prototype.add = function (a, b) {
+    Wumbo.prototype.add = function (a, b) {
         return (parseInt(a, 10) + parseInt(b, 10)).toString();
     };
 
-    Porket.prototype.sub = function (a, b) {
+    Wumbo.prototype.sub = function (a, b) {
         return (parseInt(a, 10) - parseInt(b, 10)).toString();
     };
 
-    Porket.prototype.mul = function (a, b) {
+    Wumbo.prototype.mul = function (a, b) {
         return (parseInt(a, 10) * parseInt(b, 10)).toString();
     };
 
-    Porket.prototype.div = function (a, b) {
+    Wumbo.prototype.div = function (a, b) {
         return (parseInt(a, 10) / parseInt(b, 10)).toString();
     };
 
-    Porket.prototype.exp = function (a, b) {
+    Wumbo.prototype.exp = function (a, b) {
         return (Math.pow(parseInt(a, 10), parseInt(b, 10))).toString();
     };
 
     /* LOGICAL FUNCTIONS */
 
-    Porket.prototype.isOp = function (k) {
+    Wumbo.prototype.isOp = function (k) {
         if (k === '+' || k === '-' || k === '*' || k === '/' || k === '^' || k === '(' || k === ')') {
             return true;
         } else {
@@ -107,7 +107,7 @@
     };
 
     /* Mainipulation functions */
-    Porket.prototype.simplify = function (expression, i) {
+    Wumbo.prototype.simplify = function (expression, i) {
         var k, j;
         var opsign = expression[i];
 
