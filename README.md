@@ -33,3 +33,15 @@ Create a ```Wumbo()``` object:
 
 var patrick = new Wumbo(); // Create the wumbotron
 ```
+
+Call the ```.parse()``` method with an expression in a string:
+
+```js
+
+var answer = patrick.parse('5 * ( 2 + 3 )');
+console.log(answer);
+
+// Output: 25
+```
+
+
