@@ -15,7 +15,6 @@
             o_paren: '(',
             c_paren: ')'
         };
-        this.PAREN_REGEX = /.+/;
     };
 
     /* Main parser */
@@ -99,7 +98,13 @@
     /* LOGICAL FUNCTIONS */
 
     Wumbo.prototype.isOp = function (k) {
-        if (k === '+' || k === '-' || k === '*' || k === '/' || k === '^' || k === '(' || k === ')') {
+        if (k === this.OPERATORS.add
+            || k === this.OPERATORS.sub
+            || k === this.OPERATORS.mul
+            || k === this.OPERATORS.div
+            || k === this.OPERATORS.exp
+            || k === this.OPERATORS.o_paren
+            || k === this.OPERATORS.c_paren) {
             return true;
         } else {
             return false;
