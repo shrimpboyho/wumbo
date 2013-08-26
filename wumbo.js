@@ -16,6 +16,16 @@
             c_paren: ')'
         };
     };
+    
+    /* Better number parser */
+    
+    Wumbo.prototype.parseNum = function(a, r){
+        if(a.search('.') != -1){
+            return parseFloat(a);
+        }else{
+            return parseInt(a,r);
+        }
+    };
 
     /* Main parser */
     Wumbo.prototype.parse = function (expression) {
@@ -76,23 +86,23 @@
     /* OPERATOR FUNCTIONS */
 
     Wumbo.prototype.add = function (a, b) {
-        return (parseInt(a, 10) + parseInt(b, 10)).toString();
+        return (this.parseNum(a, 10) + this.parseNum(b, 10)).toString();
     };
 
     Wumbo.prototype.sub = function (a, b) {
-        return (parseInt(a, 10) - parseInt(b, 10)).toString();
+        return (this.parseNum(a, 10) - this.parseNum(b, 10)).toString();
     };
 
     Wumbo.prototype.mul = function (a, b) {
-        return (parseInt(a, 10) * parseInt(b, 10)).toString();
+        return (this.parseNum(a, 10) * this.parseNum(b, 10)).toString();
     };
 
     Wumbo.prototype.div = function (a, b) {
-        return (parseInt(a, 10) / parseInt(b, 10)).toString();
+        return (this.parseNum(a, 10) / this.parseNum(b, 10)).toString();
     };
 
     Wumbo.prototype.exp = function (a, b) {
-        return (Math.pow(parseInt(a, 10), parseInt(b, 10))).toString();
+        return (Math.pow(this.parseNum(a, 10), this.parseNum(b, 10))).toString();
     };
 
     /* LOGICAL FUNCTIONS */
