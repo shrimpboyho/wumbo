@@ -8,7 +8,7 @@
 	
 	<body>
 	
-	<div class="modal fade">
+	<div id = "modal"class="modal fade">
 	  <div class="modal-dialog">
 	    <div class="modal-content">
 	      <div class="modal-header">
@@ -75,7 +75,7 @@
 			<h1>wumbo</h1>
 			<p>A Simple Expression Parser Built On The Theory Of Wumbology</p>
 			<input class="form-control" id="focusedInput" type="text" placeholder="Enter Math Expression" style="width:200px;margin-bottom:20px;float:left;">
-			<a class="btn btn-success" href="https://github.com/shrimpboyho/wumbo" style= "margin-left:10px;">Parse</a>
+			<a id="subButton"class="btn btn-success" style= "margin-left:10px;">Parse</a>
 			<div class ="row" style="padding:15px;">
 				<a class="btn btn-primary btn-large" href="https://github.com/shrimpboyho/wumbo" style="float:left;margin-left: -198px;">View on GitHub</a>
 			</div>
@@ -99,7 +99,13 @@
 
 	      <script src="http://shrimpboyho.github.io/wumbo/wumbo.js"></script>
 	      <script>
-	      
+		$('#subButton').click(function () {
+    			var parser = new Wumbo();
+    			var output = parser.parse($('input').val());
+			$('#answerSpot').html(output);
+			$('#modal').modal('show');
+		});
+		      
 	      </script>
 		</body>
 </html>
