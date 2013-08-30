@@ -16,15 +16,20 @@
             c_paren: ')'
         };
     };
-    
+
     /* Better number parser */
-    
-    Wumbo.prototype.parseNum = function(a, r){
-        if(a.search('.') != -1){
+
+    Wumbo.prototype.parseNum = function (a, r) {
+        if (a.search('.') != -1) {
             return parseFloat(a);
-        }else{
-            return parseInt(a,r);
+        } else {
+            return parseInt(a, r);
         }
+    };
+
+    /* Lexing */
+    Wumbo.prototype.hasNumbers = function (t) {
+        return /\d/.test(t);
     };
 
     /* Main parser */
@@ -46,8 +51,8 @@
                     }
                 }
                 subsec = expression.slice(startPoint, endPoint + 1); // the sub expression with the parenthesis (2 + 3)
-                subsec = subsec.replace("(",""); // strip away parenthesis
-                subsec = subsec.replace(")","");
+                subsec = subsec.replace("(", ""); // strip away parenthesis
+                subsec = subsec.replace(")", "");
                 subsecsim = this.parse(subsec);
                 expression = expression.replaceBetween(startPoint, endPoint + 1, subsecsim);
             }
@@ -108,13 +113,7 @@
     /* LOGICAL FUNCTIONS */
 
     Wumbo.prototype.isOp = function (k) {
-        if (k === this.OPERATORS.add
-            || k === this.OPERATORS.sub
-            || k === this.OPERATORS.mul
-            || k === this.OPERATORS.div
-            || k === this.OPERATORS.exp
-            || k === this.OPERATORS.o_paren
-            || k === this.OPERATORS.c_paren) {
+        if (k === this.OPERATORS.add || k === this.OPERATORS.sub || k === this.OPERATORS.mul || k === this.OPERATORS.div || k === this.OPERATORS.exp || k === this.OPERATORS.o_paren || k === this.OPERATORS.c_paren) {
             return true;
         } else {
             return false;
@@ -125,10 +124,15 @@
     Wumbo.prototype.simplify = function (expression, i) {
         var k, j;
         var opsign = expression[i];
+        var negat;
 
         // determine left operand index
         for (k = i - 1; k >= 0; k--) {
             if (this.isOp(expression[k])) {
+                if (expression[k] === '-') {
+                    negat = true;
+                    k--;
+                }
                 break;
             }
         }
@@ -146,36 +150,47 @@
         // Do splicing, simplification, and replacement
         var op1 = expression.slice(leftstart, i).trim();
         var op2 = expression.slice(i + 1, rightstart + 1).trim();
+
         console.log("Left hand operand: " + op1);
+        console.log("opertor middle: " + opsign);
         console.log("Right hand operand: " + op2);
 
-        if (opsign === this.OPERATORS.add) {
-            var stuffing = this.add(op1, op2);
-            expression = expression.replaceBetween(leftstart, rightstart + 1, stuffing);
-            console.log("SIMPLIFICAITON: " + expression);
+        if (this.hasNumbers(op1) && this.hasNumbers(op2)) {
+            if (opsign === this.OPERATORS.add) {
+                var stuffing = this.add(op1, op2);
+                expression = expression.replaceBetween(leftstart, rightstart + 1, stuffing);
+                console.log("SIMPLIFICAITON: " + expression);
+            }
+            if (opsign === this.OPERATORS.sub) {
+                var stuffing = this.sub(op1, op2);
+                expression = expression.replaceBetween(leftstart, rightstart + 1, stuffing);
+                console.log("SIMPLIFICAITON: " + expression);
+            }
+            if (opsign === this.OPERATORS.mul) {
+                var stuffing = this.mul(op1, op2);
+                expression = expression.replaceBetween(leftstart, rightstart + 1, stuffing);
+                console.log("SIMPLIFICAITON: " + expression);
+            }
+            if (opsign === this.OPERATORS.div) {
+                var stuffing = this.div(op1, op2);
+                expression = expression.replaceBetween(leftstart, rightstart + 1, stuffing);
+                console.log("SIMPLIFICAITON: " + expression);
+            }
+            if (opsign === this.OPERATORS.exp) {
+                var stuffing = this.exp(op1, op2);
+                expression = expression.replaceBetween(leftstart, rightstart + 1, stuffing);
+                console.log("SIMPLIFICAITON: " + expression);
+            }
         }
-        if (opsign === this.OPERATORS.sub) {
-            var stuffing = this.sub(op1, op2);
-            expression = expression.replaceBetween(leftstart, rightstart + 1, stuffing);
-            console.log("SIMPLIFICAITON: " + expression);
-        }
-        if (opsign === this.OPERATORS.mul) {
-            var stuffing = this.mul(op1, op2);
-            expression = expression.replaceBetween(leftstart, rightstart + 1, stuffing);
-            console.log("SIMPLIFICAITON: " + expression);
-        }
-        if (opsign === this.OPERATORS.div) {
-            var stuffing = this.div(op1, op2);
-            expression = expression.replaceBetween(leftstart, rightstart + 1, stuffing);
-            console.log("SIMPLIFICAITON: " + expression);
-        }
-        if (opsign === this.OPERATORS.exp) {
-            var stuffing = this.exp(op1, op2);
-            expression = expression.replaceBetween(leftstart, rightstart + 1, stuffing);
-            console.log("SIMPLIFICAITON: " + expression);
-        }
-
         return expression;
     }
 
 })();
+
+$('button').click(function () {
+    var parser = new Wumbo();
+    console.time("WumboStart");
+    var output = parser.parse($('input').val());
+    console.timeEnd("WumboStart");
+    $('body').append(output);
+});
