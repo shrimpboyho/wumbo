@@ -103,7 +103,7 @@
 	      <script>
 		$('#subButton').click(function () {
     			var parser = new Wumbo();
-    			var output = parser.parse($('input').val());
+    			var output = parser.parse($('#focusedInput').val());
 			$('#answerSpot').html(output);
 			$('#modal').modal('show');
 		});
